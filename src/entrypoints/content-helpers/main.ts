@@ -1,3 +1,4 @@
+import { getFinalMarks } from "./calculateMarks";
 import { extractCodeBlocks } from "./code-splitter";
 import { runner } from "./runner";
 import toast from "react-hot-toast";
@@ -22,11 +23,13 @@ export const main = async (event: any) => {
 
     const extracted = extractCodeBlocks(source);
     const { feedback, obtainedMarks } = await runner(extracted);
+    const submittedOnMarks:string | undefined = document.querySelector('.d-flex .font-weight-bold.pl-2')?.textContent; 
+    const finalMarks = getFinalMarks(obtainedMarks, Number(submittedOnMarks), 60);
     const markField = document.getElementById("Mark") as HTMLInputElement;
     markField?.focus();
     navigator.clipboard.writeText(obtainedMarks.toString());
     if (markField){ 
-      markField.value = obtainedMarks.toString();
+      markField.value = finalMarks.toString();
     }
     const editor = document.querySelector(".ql-editor");
     if (editor) editor.innerHTML = `<p>${feedback}</p>`;
