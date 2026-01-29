@@ -1,3 +1,78 @@
+/**
+ * TESTCASES Definition File
+ * 
+ * This file contains automated test cases for 5 different JavaScript functions.
+ * Each problem has its own set of main (m) and challenge/corner (c) test cases.
+ * 
+ * Overall Structure:
+ * 
+ * export const TESTCASES = [
+ *   {
+ *     id: number,                // unique problem id (1–5)
+ *     title: string,             // descriptive name of the problem
+ *     functionName: string,      // exact name of the function to be tested
+ *     testCases: Array<TestCase>
+ *   },
+ *   ...
+ * ]
+ * 
+ * Where each TestCase looks like:
+ * 
+ * {
+ *   input: any[],              // arguments passed to the function (as array)
+ *   expected: any,             // expected return value (number, boolean, string, object)
+ *   type: "m" | "c"            // "m" = main / happy path, "c" = challenge / edge / invalid case
+ * }
+ * 
+ * Important Testing Rule:
+ * ────────────────────────────────────────────────
+ *   → The function is called using spread syntax:
+ *     fn(...testCase.input)
+ * 
+ *   → That means even though input is wrapped in an outer array [ … ],
+ *     the outer array itself is **ignored** during actual function call.
+ * 
+ *   Examples:
+ * 
+ *   input: [1500, 20]          → fn(1500, 20)
+ *   input: ["ph-10985"]        → fn("ph-10985")
+ *   input: [{ right: 67, ... }] → fn({ right: 67, ... })
+ *   input: [["ha", "na", "ha"]] → fn(["ha", "na", "ha"])
+ *   input: [12345]             → fn(12345)
+ * 
+ * ────────────────────────────────────────────────
+ * 
+ * Problems Overview:
+ * 
+ * 1. newPrice(currentPrice: number, discount: number) → number | "Invalid"
+ *    Eid sale discount calculator with input validation
+ * 
+ * 2. validOtp(otp: string) → boolean | "Invalid"
+ *    Zapshift OTP format checker (must start with "ph-" and length 8)
+ * 
+ * 3. finalScore({ right, wrong, skip }: {right:number, wrong:number, skip:number})
+ *    → number | "Invalid"
+ *    BCS MCQ scoring with negative marking (-0.5 per wrong) & total 100 questions rule
+ * 
+ * 4. gonoVote(votes: string[]) → boolean | "Invalid"
+ *    Simple majority check: "ha" ≥ "na" → true
+ * 
+ * 5. analyzeText(text: string) → { longwords: string, token: number } | "Invalid"
+ *    Find longest word + count characters excluding spaces
+ * 
+ * @type {Array<{
+ *   id: number,
+ *   title: string,
+ *   functionName: string,
+ *   testCases: Array<{
+ *     input: any[],
+ *     expected: any,
+ *     type: "m" | "c"
+ *   }>
+ * }>}
+ */
+
+
 export const TESTCASES = [
   {
     id: 1,
