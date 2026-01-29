@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanbox</title>
+</head>
+<body>
+    <script type="module">
+    // Option A: relative import (recommended if file is next to sandbox.html)
+    import './sandbox-executor.js';
+
+    // Option B: full runtime URL (more reliable in some bundling setups)
+    // import browser.runtime.getURL('/sandbox-executor.js');
+    // but then you need to await dynamic import:
+    // const { init } = await import(browser.runtime.getURL('/sandbox-executor.js'));
+    // init();  // if you export an init function
+  </script>
+</body>
+</html>
