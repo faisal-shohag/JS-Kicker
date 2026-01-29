@@ -1,4 +1,3 @@
-import { demoCode } from "@/const/const";
 import { extractCodeBlocks } from "./code-splitter";
 import { runner } from "./runner";
 import toast from "react-hot-toast";
@@ -21,7 +20,7 @@ export const main = async (event: any) => {
       return;
     }
 
-    const extracted = extractCodeBlocks(demoCode);
+    const extracted = extractCodeBlocks(source);
     const { feedback, obtainedMarks } = await runner(extracted);
     const markField = document.getElementById("Mark") as HTMLInputElement;
     markField?.focus();
