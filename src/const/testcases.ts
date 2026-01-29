@@ -1,4 +1,4 @@
-export const PROBLEMS = [
+export const TESTCASES = [
   {
     id: 1,
     title: "Problem-01: New Price for Eid Sale",

@@ -25,7 +25,9 @@ export const main = async (event: any) => {
     const markField = document.getElementById("Mark") as HTMLInputElement;
     markField?.focus();
     navigator.clipboard.writeText(obtainedMarks.toString());
-    if (markField) markField.value = obtainedMarks.toString();
+    if (markField){ 
+      markField.value = obtainedMarks.toString();
+    }
     const editor = document.querySelector(".ql-editor");
     if (editor) editor.innerHTML = `<p>${feedback}</p>`;
     toast.success("Feedback generated!", {

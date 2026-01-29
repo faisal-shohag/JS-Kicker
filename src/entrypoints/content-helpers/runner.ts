@@ -1,10 +1,10 @@
-import { PROBLEMS } from "@/const/problems";
+import { TESTCASES } from "@/const/testcases";
 import { executeFunctionsInIframe } from "./execute-sandbox";
 import { generateFeedbacks } from "./generate-feedback";
 
 export const runner = async (sources: any) => {
   const results: any = [];
-  for (const problem of PROBLEMS) {
+  for (const problem of TESTCASES) {
     const source = sources.find((s: any) => s.name === problem.functionName);
     if (!source) {
       results.push({
@@ -21,6 +21,7 @@ export const runner = async (sources: any) => {
     );
     results.push({
       title: problem.title,
+      functionName: problem.functionName,
       results: res,
     });
   }
