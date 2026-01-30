@@ -1,5 +1,5 @@
+import { extractCodeBlocksAST } from "../parser/extract-code-blocks";
 import { getFinalMarks } from "./calculateMarks";
-import { extractCodeBlocks } from "./code-splitter";
 import { runner } from "./runner";
 import toast from "react-hot-toast";
 export const main = async (event: any) => {
@@ -21,11 +21,11 @@ export const main = async (event: any) => {
       return;
     }
 
-    const extracted = extractCodeBlocks(source);
-    const { feedback, obtainedMarks } = await runner(extracted);
-    const submittedOnMarks:string | undefined = document.querySelector('.d-flex .font-weight-bold.pl-2')?.textContent; 
-    const finalMarks = getFinalMarks(obtainedMarks, Number(submittedOnMarks), 60);
+    const extracted = extractCodeBlocksAST(source);
     const markField = document.getElementById("Mark") as HTMLInputElement;
+    const submittedOnMarks:string | undefined = document.querySelector('.d-flex .font-weight-bold.pl-2')?.textContent; 
+    const { feedback, obtainedMarks } = await runner(extracted, Number(submittedOnMarks));
+    const finalMarks = getFinalMarks(obtainedMarks, Number(submittedOnMarks), 60);
     markField?.focus();
     navigator.clipboard.writeText(obtainedMarks.toString());
     if (markField){ 

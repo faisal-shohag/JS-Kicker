@@ -1,3 +1,5 @@
+import { getFinalMarks } from "./calculateMarks";
+
 interface TestResult {
   type: string;
   passed: boolean;
@@ -26,7 +28,7 @@ const colors = {
   header: "#2532CC",
 };
 
-export const generateFeedbacks = (results: Problem[]) => {
+export const generateFeedbacks = (results: Problem[], submittedOnMarks: number) => {
   let report = "";
 
   //   report += 'Assignment Feedback Report\n';
@@ -66,9 +68,9 @@ export const generateFeedbacks = (results: Problem[]) => {
     const challengeTests = testResults.filter((t) => t.type === "c");
 
     if (mainTests.length > 0) {
-      report += "<strong >Main Test Cases</strong>\n";
+      report += `<strong>Main Test Cases | <strong style='color:${colors.perfect};'>Score: <strong>${mainScore}/10</strong></strong></strong>\n`;
       report += "---------------------\n";
-
+   
       mainTests.forEach((test, i) => {
         const markColor = test.passed ? colors.passed : colors.failed;
         const markBorder = test.passed ? colors.perfect : colors.fail;
@@ -95,7 +97,7 @@ export const generateFeedbacks = (results: Problem[]) => {
     }
 
     if (challengeTests.length > 0) {
-      report += "<strong>Challenge Test Cases</strong>\n";
+      report += `<strong>Challenge Test Cases | <strong style='color:${colors.perfect};'>Score: <strong>${challengeScore}/2</strong></strong> </strong>\n`;
       report += "--------------------------\n";
 
       challengeTests.forEach((test, i) => {
@@ -126,7 +128,6 @@ export const generateFeedbacks = (results: Problem[]) => {
     }
 
     let msg = "";
-    let msgColor = statusColor;
     if (totalScore === 12) msg = "🏆 PERFECT SCORE!";
     else if (totalScore >= 10) msg = "🎉 Great job — only minor issues.";
     else if (totalScore >= 5)
@@ -136,8 +137,20 @@ export const generateFeedbacks = (results: Problem[]) => {
     report += `<p style='border: 1px dashed #E0DDDD; padding: 20px 20px; border-radius: 6px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1); margin-top: 10px; font-weight: bold;'>${msg}</p>`;
     report += "</p>";
   });
+
+    const finalMarks = getFinalMarks(totalObtainedMarks, submittedOnMarks, 60);
+
+  report += `<p style='text-align: center; border: 1px dashed #E0DDDD; padding: 20px 20px; border-radius: 6px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1); margin-top: 30px;'>`
+    if(submittedOnMarks !== 60) {
+    report += `<strong style='color: red;'>You have submitted on <span style='font-size: 18px;'>${submittedOnMarks}</span></strong>\n`;
+  }
+  report += `<strong style='font-size: 36px; color: green; font-weight: bold;'>${finalMarks}/${submittedOnMarks}</strong>\n`;
+  report += `<strong>Total Marks</strong>`;
+  report +=`</p>`
+
   report +=
     "<p style='border: 1px dashed #E0DDDD; padding: 20px 20px; border-radius: 6px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1); margin-top: 30px;'>";
+
   report += generateSummaryStats(results);
   report += "</p>";
   return {

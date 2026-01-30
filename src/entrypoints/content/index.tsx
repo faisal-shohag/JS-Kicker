@@ -4,6 +4,11 @@ import ContentApp from "./ContentApp";
 import "./globals.css";
 import { main } from "../content-helpers/main";
 import { Toaster } from "react-hot-toast";
+import { extractCodeBlocksAST } from "../parser/extract-code-blocks";
+import { demoCode } from "@/const/const";
+import { extractCodeBlocks } from "../content-helpers/code-splitter";
+import { fixBrokenFunctions } from "../parser/fix-broken-functions";
+import { runner } from "../content-helpers/runner";
 export const PortalContext = React.createContext<HTMLElement | null>(null);
 
 const ContentRoot = () => {
@@ -29,9 +34,15 @@ export default defineContentScript({
 
   async main(ctx) {
     document.addEventListener("keydown", async (event) => {
-      
         await main(event);
-      
+        // const fixedSource = fixBrokenFunctions(demoCode);
+        // const extractedAST = extractCodeBlocksAST(fixedSource)
+        // console.log("AST BASED====>", extractedAST)
+
+        // const extracted = extractCodeBlocks(demoCode)
+        // console.log("NON AST BASED====>", extracted)
+        // const res = await runner(extractedAST)
+        // console.log(res.feedback)
     });
 
     const ui = await createShadowRootUi(ctx, {

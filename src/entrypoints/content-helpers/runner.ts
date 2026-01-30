@@ -2,7 +2,7 @@ import { TESTCASES } from "@/const/testcases";
 import { executeFunctionsInIframe } from "./execute-sandbox";
 import { generateFeedbacks } from "./generate-feedback";
 
-export const runner = async (sources: any) => {
+export const runner = async (sources: any, submittedOnMarks: number) => {
   const results: any = [];
   for (const problem of TESTCASES) {
     const source = sources.find((s: any) => s.name === problem.functionName);
@@ -26,5 +26,6 @@ export const runner = async (sources: any) => {
     });
   }
 
-  return generateFeedbacks(results);
+  return generateFeedbacks(results, submittedOnMarks);
+
 };
