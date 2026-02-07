@@ -1,11 +1,11 @@
 /**
  * TESTCASES Definition File
- * 
+ *
  * This file contains automated test cases for 5 different JavaScript functions.
  * Each problem has its own set of main (m) and challenge/corner (c) test cases.
- * 
+ *
  * Overall Structure:
- * 
+ *
  * export const TESTCASES = [
  *   {
  *     id: number,                // unique problem id (1–5)
@@ -15,51 +15,51 @@
  *   },
  *   ...
  * ]
- * 
+ *
  * Where each TestCase looks like:
- * 
+ *
  * {
  *   input: any[],              // arguments passed to the function (as array)
  *   expected: any,             // expected return value (number, boolean, string, object)
  *   type: "m" | "c"            // "m" = main / happy path, "c" = challenge / edge / invalid case
  * }
- * 
+ *
  * Important Testing Rule:
  * ────────────────────────────────────────────────
  *   → The function is called using spread syntax:
  *     fn(...testCase.input)
- * 
+ *
  *   → That means even though input is wrapped in an outer array [ … ],
  *     the outer array itself is **ignored** during actual function call.
- * 
+ *
  *   Examples:
- * 
+ *
  *   input: [1500, 20]          → fn(1500, 20)
  *   input: ["ph-10985"]        → fn("ph-10985")
  *   input: [{ right: 67, ... }] → fn({ right: 67, ... })
  *   input: [["ha", "na", "ha"]] → fn(["ha", "na", "ha"])
  *   input: [12345]             → fn(12345)
- * 
+ *
  * ────────────────────────────────────────────────
- * 
+ *
  * Problems Overview:
- * 
+ *
  * 1. newPrice(currentPrice: number, discount: number) → number | "Invalid"
  *    Eid sale discount calculator with input validation
- * 
+ *
  * 2. validOtp(otp: string) → boolean | "Invalid"
  *    Zapshift OTP format checker (must start with "ph-" and length 8)
- * 
+ *
  * 3. finalScore({ right, wrong, skip }: {right:number, wrong:number, skip:number})
  *    → number | "Invalid"
  *    BCS MCQ scoring with negative marking (-0.5 per wrong) & total 100 questions rule
- * 
+ *
  * 4. gonoVote(votes: string[]) → boolean | "Invalid"
  *    Simple majority check: "ha" ≥ "na" → true
- * 
+ *
  * 5. analyzeText(text: string) → { longwords: string, token: number } | "Invalid"
  *    Find longest word + count characters excluding spaces
- * 
+ *
  * @type {Array<{
  *   id: number,
  *   title: string,
@@ -72,21 +72,35 @@
  * }>}
  */
 
-
-export const TESTCASES = [
+export const TESTCASES: Array<{
+  id: number;
+  title: string;
+  functionName: string;
+  testCases: Array<{
+    input: any[];
+    expected: any;
+    type: "m" | "c";
+  }>;
+}> = [
   {
     id: 1,
     title: "Problem-01: New Price for Eid Sale",
     functionName: "newPrice",
     testCases: [
-      { input: [1500, 20], expected: 1200, type: "m" },
-      { input: [2000, 15], expected: 1700, type: "m" },
-      { input: [1200, 7], expected: 1116, type: "m" },
-      { input: [2000, 17.17], expected: 1656.6, type: "m" },
+      { input: [1500, 20], expected: "1200.000", type: "m" },
+      { input: [2000, 15], expected: "1700.000", type: "m" },
+      { input: [1200, 7], expected: "1116.000", type: "m" },
+      { input: [2000, 17.17], expected: "1656.600", type: "m" },
       { input: ["1000", 10], expected: "Invalid", type: "c" },
       { input: [500, "5"], expected: "Invalid", type: "c" },
-      { input: [500, -1], expected: "Invalid", type: "c" },
-      { input: [500, 120], expected: "Invalid", type: "c" },
+      // hidden testcases
+      { input: [1, 99], expected: "0.010", type: "m" },
+      { input: [99, 1], expected: "98.010", type: "m" },
+      { input: [99, 1], expected: "98.010", type: "m" },
+      { input: [12345.6, 88.12], expected: "1466.657", type: "m" },
+      { input: [500, 101], expected: "Invalid", type: "c" },
+      { input: ["1", 99], expected: "Invalid", type: "c" },
+      { input: [1, "99"], expected: "Invalid", type: "c" },
     ],
   },
 
@@ -98,9 +112,15 @@ export const TESTCASES = [
       { input: ["ph-10985"], expected: true, type: "m" },
       { input: ["ph-1234"], expected: false, type: "m" },
       { input: ["abc-12345"], expected: false, type: "m" },
-      { input: ["ph-123456"], expected: false, type: "m" },
       { input: [["ph-10985"]], expected: "Invalid", type: "c" },
-      { input: [12345678], expected: "Invalid", type: "m" },
+      { input: [12345678], expected: "Invalid", type: "c" },
+      //hidden testcases
+      { input: ["ph-00000"], expected: true, type: "m" },
+      { input: ["12345678"], expected: false, type: "m" },
+      { input: ["phi-2026"], expected: false, type: "m" },
+      { input: [["fc-99999"]], expected: "Invalid", type: "c" },
+      { input: [87654321], expected: "Invalid", type: "c" },
+      { input: [{}], expected: "Invalid", type: "c" },
     ],
   },
 
@@ -115,10 +135,20 @@ export const TESTCASES = [
       {
         input: [{ right: 80, wrong: 25, skip: 0 }],
         expected: "Invalid",
-        type: "c",
+        type: "m",
       },
       { input: ["!@#"], expected: "Invalid", type: "c" },
       { input: [["Raj"]], expected: "Invalid", type: "c" },
+
+      //hidden testcases
+      { input: [{ right: 98, wrong: 2, skip: 0 }], expected: 97, type: "m" },
+      { input: [{ right: 1, wrong: 1, skip: 98 }], expected: 1, type: "m" },
+      { input: ["phi-lab"], expected: "Invalid", type: "c" },
+      {
+        input: ["{right: 10, wrong: 5, skip: 85 }"],
+        expected: "Invalid",
+        type: "c",
+      },
     ],
   },
 
@@ -127,11 +157,18 @@ export const TESTCASES = [
     title: "Problem-04: Upcoming Gono Vote",
     functionName: "gonoVote",
     testCases: [
-      { input: [["ha", "na", "ha", "na"]], expected: true, type: "m" },
+      { input: [["ha", "na", "ha", "na"]], expected: "equal", type: "m" },
       { input: [["ha", "na", "na"]], expected: false, type: "m" },
       { input: [["ha", "ha", "ha", "na"]], expected: true, type: "m" },
       { input: ["ha, na"], expected: "Invalid", type: "c" },
       { input: [12345], expected: "Invalid", type: "c" },
+
+      //hidden testcases
+      { input: [["ha", "ha", "ha", "ha"]], expected: true, type: "m" },
+      { input: [["na", "na", "na", "na"]], expected: false, type: "m" },
+      { input: [[]], expected: "equal", type: "m" },
+      { input: [["ha", "na"]], expected: "equal", type: "m" },
+      { input: [{ ha: 0, na: 0 }], expected: "Invalid", type: "c" },
     ],
   },
 
@@ -155,7 +192,6 @@ export const TESTCASES = [
         expected: { longwords: "shining", token: 21 },
         type: "m",
       },
-      { input: [12345], expected: "Invalid", type: "c" },
       {
         input: ["Programming is fun"],
         expected: { longwords: "Programming", token: 16 },
@@ -166,7 +202,26 @@ export const TESTCASES = [
         expected: { longwords: "quick", token: 14 },
         type: "m",
       },
+      { input: [12345], expected: "Invalid", type: "c" },
       { input: [""], expected: "Invalid", type: "c" },
+      //hidden testcases
+      {
+        input: ["Free Palestine"],
+        expected: { longwords: "Palestine", token: 13 },
+        type: "m",
+      },
+
+      {
+        input: ["We will be Hadi we will be fighting decades after decades"],
+        expected: { longwords: "fighting", token: 47 },
+        type: "m",
+      },
+
+      {
+        input: [{ url: "phi-lab.vercel.app" }],
+        expected: "Invalid",
+        type: "c",
+      },
     ],
   },
 ];

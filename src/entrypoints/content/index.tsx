@@ -4,11 +4,7 @@ import ContentApp from "./ContentApp";
 import "./globals.css";
 import { main } from "../content-helpers/main";
 import { Toaster } from "react-hot-toast";
-import { extractCodeBlocksAST } from "../parser/extract-code-blocks";
-import { demoCode } from "@/const/const";
-import { extractCodeBlocks } from "../content-helpers/code-splitter";
-import { fixBrokenFunctions } from "../parser/fix-broken-functions";
-import { runner } from "../content-helpers/runner";
+import { recheck } from "../content-helpers/recheck";
 export const PortalContext = React.createContext<HTMLElement | null>(null);
 
 const ContentRoot = () => {
@@ -35,6 +31,7 @@ export default defineContentScript({
   async main(ctx) {
     document.addEventListener("keydown", async (event) => {
         await main(event);
+        await recheck(event)
         // const fixedSource = fixBrokenFunctions(demoCode);
         // const extractedAST = extractCodeBlocksAST(fixedSource)
         // console.log("AST BASED====>", extractedAST)

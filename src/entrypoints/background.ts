@@ -6,22 +6,22 @@ export default defineBackground(() => {
 
      chrome.contextMenus.create({
       id: 'sync',
-      title: 'Sync Testcases',
+      title: '♾️ Sync Testcases(Dev in)',
       contexts: ['all'], 
     });
 
 
-    // chrome.contextMenus.create({
-    //   id: 'run_manually',
-    //   title: 'Run Manually',
-    //   contexts: ['all'], 
-    // });
+    chrome.contextMenus.create({
+      id: 'shortcuts',
+      title: '🎮 Shortcuts',
+      contexts: ['all'], 
+    });
 
 
  
      chrome.contextMenus.create({
       id: 'about',
-      title: 'About',
+      title: '🧬 About',
       contexts: ['all'],
     });
   });

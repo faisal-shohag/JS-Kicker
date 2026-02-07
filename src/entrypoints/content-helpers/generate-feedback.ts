@@ -28,7 +28,7 @@ const colors = {
   header: "#2532CC",
 };
 
-export const generateFeedbacks = (results: Problem[], submittedOnMarks: number) => {
+export const generateFeedbacks = (results: Problem[]) => {
   let report = "";
 
   //   report += 'Assignment Feedback Report\n';
@@ -67,10 +67,12 @@ export const generateFeedbacks = (results: Problem[], submittedOnMarks: number) 
     const mainTests = testResults.filter((t) => t.type === "m");
     const challengeTests = testResults.filter((t) => t.type === "c");
 
+
+
     if (mainTests.length > 0) {
-      report += `<strong>Main Test Cases | <strong style='color:${colors.perfect};'>Score: <strong>${mainScore}/10</strong></strong></strong>\n`;
+      report += `<strong>Main Test Cases</strong>\n`;
       report += "---------------------\n";
-   
+
       mainTests.forEach((test, i) => {
         const markColor = test.passed ? colors.passed : colors.failed;
         const markBorder = test.passed ? colors.perfect : colors.fail;
@@ -86,7 +88,7 @@ export const generateFeedbacks = (results: Problem[], submittedOnMarks: number) 
         report += `<span style="font-family:Consolas,monospace;">`;
         report += `<strong style="margin-top: 4px;">Input: </strong> ${functionName}(${input})\n`;
         report += `<strong>Expected:</strong> ${JSON.stringify(test.expected)}\n`;
-        report += `<strong>Output:</strong> ${JSON.stringify(test.actual)}\n`;
+        report += `<strong>Your Output:</strong> ${JSON.stringify(test.actual)}\n`;
         report += `</span>`;
         if (error) {
           report += `<span style="color:#f11c1c; background-color: #f11c1c29; padding: 10px 10px; border-radius: 4px; border: dashed 1px #f11c1c; display: inline-block; margin-top: 10px; margin-bottom: 10px;">Error: ${error.msg}</span>\n`;
@@ -97,7 +99,7 @@ export const generateFeedbacks = (results: Problem[], submittedOnMarks: number) 
     }
 
     if (challengeTests.length > 0) {
-      report += `<strong>Challenge Test Cases | <strong style='color:${colors.perfect};'>Score: <strong>${challengeScore}/2</strong></strong> </strong>\n`;
+      report += `<strong>Challenge Test Cases</strong>\n`;
       report += "--------------------------\n";
 
       challengeTests.forEach((test, i) => {
@@ -115,9 +117,9 @@ export const generateFeedbacks = (results: Problem[], submittedOnMarks: number) 
         }
         report += `\n`;
         report += `<span style="font-family:Consolas,monospace;">`;
-         report += `<strong style="margin-top: 4px;">Input: </strong> ${functionName}(${input})\n`;
+        report += `<strong style="margin-top: 4px;">Input: </strong> ${functionName}(${input})\n`;
         report += `<strong>Expected:</strong> ${JSON.stringify(test.expected)}\n`;
-        report += `<strong>Output:</strong> ${JSON.stringify(test.actual)}\n`;
+        report += `<strong>Your Output:</strong> ${JSON.stringify(test.actual)}\n`;
         report += `</span>`;
         if (error) {
           report += `<span style="color:#f11c1c; background-color: #f11c1c29; padding: 10px 10px; border-radius: 4px; border: dashed 1px #f11c1c; display: inline-block; margin-top: 10px; margin-bottom: 10px;">Error: ${error.msg}</span>\n`;
@@ -134,19 +136,8 @@ export const generateFeedbacks = (results: Problem[], submittedOnMarks: number) 
       msg = "📌 Keep practicing — you’re on the right path.";
     else msg = "🔄 Review the logic carefully and try again.";
 
-    report += `<p style='border: 1px dashed #E0DDDD; padding: 20px 20px; border-radius: 6px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1); margin-top: 10px; font-weight: bold;'>${msg}</p>`;
-    report += "</p>";
+    report += `<p style='border: 1px dashed #E0DDDD; padding: 20px 20px; border-radius: 6px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1); margin-top: 10px; font-weight: bold;'>${msg}</p></p>`;
   });
-
-    const finalMarks = getFinalMarks(totalObtainedMarks, submittedOnMarks, 60);
-
-  report += `<p style='text-align: center; border: 1px dashed #E0DDDD; padding: 20px 20px; border-radius: 6px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1); margin-top: 30px;'>`
-    if(submittedOnMarks !== 60) {
-    report += `<strong style='color: red;'>You have submitted on <span style='font-size: 18px;'>${submittedOnMarks}</span></strong>\n`;
-  }
-  report += `<strong style='font-size: 36px; color: green; font-weight: bold;'>${finalMarks}/${submittedOnMarks}</strong>\n`;
-  report += `<strong>Total Marks</strong>`;
-  report +=`</p>`
 
   report +=
     "<p style='border: 1px dashed #E0DDDD; padding: 20px 20px; border-radius: 6px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1); margin-top: 30px;'>";

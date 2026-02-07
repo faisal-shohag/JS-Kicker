@@ -130,7 +130,7 @@ export async function executeFunctionsInIframe(
             }
           }
 
-          const fullError = "Syntax/Setup Error" + lineInfo + ": " + errMsg;
+          const fullError = "Syntax/Setup Error" + ": " + errMsg;
 
           testCases.forEach((_, index) => {
             parent.postMessage({
@@ -167,7 +167,7 @@ export async function executeFunctionsInIframe(
             if (e instanceof Error && e.stack) {
               const match = e.stack.match(/<anonymous>:(\\d+):(\\d+)/);
               if (match) {
-                execError += \` (line \${match[1]})\`;
+              //  execError += \` (line \${match[1]})\`;
               }
             }
           }

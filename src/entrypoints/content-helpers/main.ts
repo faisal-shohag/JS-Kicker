@@ -1,15 +1,18 @@
 import { extractCodeBlocksAST } from "../parser/extract-code-blocks";
 import { getFinalMarks } from "./calculateMarks";
+import { recheck } from "./recheck";
 import { runner } from "./runner";
 import toast from "react-hot-toast";
-export const main = async (event: any) => {
-  const isA4 = (
+export const main = async (event: KeyboardEvent) => {
+  const assignmentName = (
     document.querySelector(
       ".assignment-evaluation-form header strong",
     ) as HTMLElement
-  )?.innerText?.includes("Assignment 4");
+  )?.innerText
 
-  if (isA4 && event.code === "Backslash") {
+  const isA = (assignmentName?.includes("Assignment 4") || assignmentName?.includes("Assignment 3")) || false;
+  
+  if (isA && event.code === "Backslash") {
     const sourceElement = document
       .querySelectorAll(".row.form-group")[1]
       ?.querySelector(".col-12.col-md-11") as HTMLElement;
@@ -22,9 +25,10 @@ export const main = async (event: any) => {
     }
 
     const extracted = extractCodeBlocksAST(source);
+    // console.log(extracted);
     const markField = document.getElementById("Mark") as HTMLInputElement;
     const submittedOnMarks:string | undefined = document.querySelector('.d-flex .font-weight-bold.pl-2')?.textContent; 
-    const { feedback, obtainedMarks } = await runner(extracted, Number(submittedOnMarks));
+    const { feedback, obtainedMarks } = await runner(extracted);
     const finalMarks = getFinalMarks(obtainedMarks, Number(submittedOnMarks), 60);
     markField?.focus();
     navigator.clipboard.writeText(obtainedMarks.toString());
@@ -53,7 +57,7 @@ export const main = async (event: any) => {
   }
 
   if (
-    isA4 &&
+    isA &&
     event.ctrlKey &&
     event.shiftKey &&
     event.code === "BracketRight"

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import About from "../../components/About";
+import Shortcuts from "@/components/Shortcuts";
 // import toast from "react-hot-toast";
 import "./globals.css";
 // import { CircleCheck } from 'lucide-react'
-type ViewType = "manual" | "about" | "sync" | null;
+type ViewType = "manual" | "about" | "sync" | "shortcuts" | null;
 
 const ContentApp = () => {
   const [currentView, setCurrentView] = useState<ViewType>(null);
@@ -17,6 +18,8 @@ const ContentApp = () => {
       }
        else if (message.action === "about") {
         setCurrentView("about");
+      } else if (message.action === "shortcuts") {
+        setCurrentView("shortcuts");
       }
     };
 
@@ -33,23 +36,6 @@ const ContentApp = () => {
           <button
             onClick={() => {
               setCurrentView(null);
-              // toast.success("About closed!", {
-              //   icon: <CircleCheck className="text-green-500 mr-2" size={20} />,
-              //   style: {
-              //     display: "flex",
-              //     alignItems: "center",
-              //     background: "#fff",
-              //     color: "#363636",
-              //     lineHeight: 1.3,
-              //     willChange: "transform",
-              //     boxShadow:
-              //       "0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05)",
-              //     maxWidth: "350px",
-              //     pointerEvents: "auto",
-              //     padding: "8px 10px",
-              //     borderRadius: "8px",
-              //   },
-              // });
             }}
             className="absolute top-6 right-6 text-gray-500 hover:text-gray-700 cursor-pointer"
           >
@@ -58,6 +44,7 @@ const ContentApp = () => {
           {/* {currentView === 'manual' && <ManualChecker />} */}
           {currentView === "sync" && <SyncTestcases />}
           {currentView === "about" && <About />}
+          {currentView === "shortcuts" && <Shortcuts />}
         </div>
       </div>
     </>
