@@ -62,9 +62,15 @@ export async function executeFunctionsInIframe(
       }
 
       const { result, error, errorType, stdout } = event.data;
+      const user_output =
+        typeof result === "string" ? result.toLowerCase().trim() : result;
+      const expected_output =
+        typeof testCases[testIndex].expected === "string"
+          ? testCases[testIndex].expected.toLowerCase()
+          : testCases[testIndex].expected;
 
       allResults[testIndex] = {
-        passed: !error && deepEqual(result, testCases[testIndex].expected),
+        passed: !error && deepEqual(user_output, expected_output),
         actual: error ? undefined : result,
         input: testCases[testIndex].input,
         expected: testCases[testIndex].expected,

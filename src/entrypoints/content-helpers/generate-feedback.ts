@@ -1,4 +1,3 @@
-import { getFinalMarks } from "./calculateMarks";
 
 interface TestResult {
   type: string;

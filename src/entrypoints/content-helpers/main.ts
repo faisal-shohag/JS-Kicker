@@ -1,6 +1,5 @@
 import { extractCodeBlocksAST } from "../parser/extract-code-blocks";
 import { getFinalMarks } from "./calculateMarks";
-import { recheck } from "./recheck";
 import { runner } from "./runner";
 import toast from "react-hot-toast";
 export const main = async (event: KeyboardEvent) => {
