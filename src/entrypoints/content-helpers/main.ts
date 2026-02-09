@@ -58,7 +58,6 @@ export const main = async (event: KeyboardEvent) => {
   if (
     isA &&
     event.ctrlKey &&
-    event.shiftKey &&
     event.code === "BracketRight"
   ) {
     const clipboardText = await navigator.clipboard.readText();
