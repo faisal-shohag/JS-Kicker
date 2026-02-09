@@ -4,11 +4,6 @@ export default defineBackground(() => {
     chrome.runtime.onInstalled.addListener(() => {
 
 
-     chrome.contextMenus.create({
-      id: 'sync',
-      title: '♾️ Sync Testcases(Dev in)',
-      contexts: ['all'], 
-    });
 
 
     chrome.contextMenus.create({
@@ -23,6 +18,13 @@ export default defineBackground(() => {
       id: 'about',
       title: '🧬 About',
       contexts: ['all'],
+    });
+
+    
+     chrome.contextMenus.create({
+      id: 'sync',
+      title: '♾️ Sync Testcases(Dev in)',
+      contexts: ['all'], 
     });
   });
 
