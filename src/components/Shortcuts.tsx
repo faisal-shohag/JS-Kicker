@@ -8,7 +8,7 @@ interface Shortcut {
 
 const shortcuts: Shortcut[] = [
   { category: 'Normal Assignment',   keys: ['\\'],         description: 'Execute task' },
-  { category: 'Normal Assignment',   keys: ['Ctrl', ']'], description: 'Paste formatted feedback' },
+  { category: 'Normal Assignment',   keys: ['Ctrl', 'Shift', ']'], description: 'Paste formatted feedback' },
   { category: 'Rechecks',  keys: ['Ctrl', '/'],          description: 'Open recheck' },
   { category: 'Rechecks',  keys: ['Ctrl', '.'],          description: 'Execute latest recheck' },
   { category: 'Rechecks',  keys: ['Ctrl', ', (comma)'],          description: 'Focus reason field' },
