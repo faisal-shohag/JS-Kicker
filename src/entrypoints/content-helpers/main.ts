@@ -30,7 +30,7 @@ export const main = async (event: KeyboardEvent) => {
     const { feedback, obtainedMarks } = await runner(extracted);
     const finalMarks = getFinalMarks(obtainedMarks, Number(submittedOnMarks), 60);
     markField?.focus();
-    navigator.clipboard.writeText(obtainedMarks.toString());
+    navigator.clipboard.writeText(finalMarks.toString());
     if (markField){ 
       markField.value = finalMarks.toString();
     }
