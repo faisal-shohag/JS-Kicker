@@ -236,8 +236,6 @@ export function generateSummaryStats(results: Problem[]) {
   summary += "→ Read all requirements carefully before raising concerns.\n";
   summary += "→ For genuine marking errors → submit recheck request.\n";
   summary += "→ Invalid recheck request → -2 marks deduction.\n\n";
-  summary +=
-    "→ How to request recheck: https://1drv.ms/b/s!AsHwkj6t2abplhxnqigzCy2IwmLu?e=4JeV37\n\n";
 
   summary +=
     "<strong style='text-align:center; color:#CC3E25;'>Let's Code_ Your Career</strong>\n";
